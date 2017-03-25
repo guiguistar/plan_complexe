@@ -2,6 +2,7 @@
 #! /usr/bin/python2
 
 import pygame
+import sys
 
 class repere:
     '''
@@ -172,6 +173,7 @@ class graphe_complexe:
     # On calcule une fois pour toute la position de l'image (dans la surface de droite)
     # en fonction de ses coorodonnées (dans la surface de gauche)
     def precalculer_preimages(self):
+        print("Calculs en cours.")
         # Boucle sur tous les pixels de la surface de départ
         # pour chaque pixel on détermine la position de l'image
         for x in range(self.largeur):
@@ -196,6 +198,7 @@ class graphe_complexe:
                 # sinon, ce qui arrive souvant vu que les modules se multiplient
                 else:
                     self.preimages[x][y] = [0, 0]
+        print("--> fait")
 
     def mise_a_jour(self):
         # Faire bouger l'image de la surface d'arrivée
@@ -228,20 +231,35 @@ class graphe_complexe:
         self.surface.blit(self.surface_ensemble_arrivee, [LARGEUR / 2,0])
         
 if __name__ == '__main__':
-    # Taille de la fenêtre
-    # Attention: la vitesse d'exécution du programme dépend directement du nombre de pixels
-    LARGEUR = 600
-    HAUTEUR = 300
-    
+    if(len(sys.argv) == 3):
+        largeur_param = int(sys.argv[1])
+        hauteur_param = int(sys.argv[2])
+        if(largeur_param > 100 and largeur_param < 1500 and hauteur_param > 50 and hauteur_param < 800):
+            LARGEUR = largeur_param
+            HAUTEUR = hauteur_param
+        else:
+            print("Mauvais paramètres.")
+            print("Le programme prend deux paramètres entiers: la largeur et la hauteur de la fenêtre, en pixels.")
+            print("Exemple: python2 plan_complexe.py 600 300")
+    else:
+        # Taille de la fenêtre par défaut
+        # Attention: la vitesse d'exécution du programme dépend directement du nombre de pixels
+        LARGEUR = 600
+        HAUTEUR = 300
+
+    print("Initialisation de pygame.")
     pygame.init()
-    
+    print("--> fait")
+        
     ecran = pygame.display.set_mode((LARGEUR, HAUTEUR))
 
+    print("Importation de l'image.")
     # Peut être qu'il faudrait mettre cela dans la classe graphe_complexe
     # mais c'est pas sûr
     image = pygame.image.load('tux.png')
     ratio = float(image.get_width()) / image.get_height()
     image = pygame.transform.scale(image, [ LARGEUR / 4, int(LARGEUR / 4 / ratio)])
+    print("--> fait")
 
     # Instanciation du bouzin
     plan = graphe_complexe(ecran)
