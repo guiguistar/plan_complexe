@@ -99,9 +99,17 @@ class repere:
 # Un polynome dont les racines sont 0, +i, -i, +1, -1
 # z' = z(z**4 -1)
 def X_polynome_exemple(X, Y):
-    return X**5 - 10 * X**3 * Y**2 + 5 * X * Y**4 - X
+    # return X**5 - 10 * X**3 * Y**2 + 5 * X * Y**4 - X
+    X2 = X * X
+    X3 = X2 * X
+    Y2 = Y * Y
+    return X3 * (X2 - 10 * Y2) + 5 * X * Y2 * Y2 - X
 def Y_polynome_exemple(X, Y):
-    return 5 * X**4 * Y - 10 * X**2 * Y**3 + Y**5 - Y
+    # return 5 * X**4 * Y - 10 * X**2 * Y**3 + Y**5 - Y
+    X2 = X * X
+    Y2 = Y * Y
+    Y3 = Y2 * Y
+    return X2 * (5 * X2 * Y -10 * Y3) + Y3 * Y2 -Y
 
 # La fonction carrée
 # z' = z^2
