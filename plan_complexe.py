@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#! /usr/bin/python2
 
 import pygame
 
@@ -98,9 +99,17 @@ class repere:
 # Un polynome dont les racines sont 0, +i, -i, +1, -1
 # z' = z(z**4 -1)
 def X_polynome_exemple(X, Y):
-    return X**5 - 10 * X**3 * Y**2 + 5 * X * Y**4 - X
+    # return X**5 - 10 * X**3 * Y**2 + 5 * X * Y**4 - X
+    X2 = X * X
+    X3 = X2 * X
+    Y2 = Y * Y
+    return X3 * (X2 - 10 * Y2) + 5 * X * Y2 * Y2 - X
 def Y_polynome_exemple(X, Y):
-    return 5 * X**4 * Y - 10 * X**2 * Y**3 + Y**5 - Y
+    # return 5 * X**4 * Y - 10 * X**2 * Y**3 + Y**5 - Y
+    X2 = X * X
+    Y2 = Y * Y
+    Y3 = Y2 * Y
+    return X2 * (5 * X2 * Y -10 * Y3) + Y3 * Y2 -Y
 
 # La fonction carrée
 # z' = z^2
@@ -183,7 +192,7 @@ class graphe_complexe:
                 # Si l'image ne sort pas de la surface de droite
                 if(x_image >= 0 and y_image >=0
                    and x_image < self.largeur and y_image < self.hauteur):
-                    self.preimages[x][y] = [x_image, y_image]
+                    self.preimages[x][y] = [x_image, y_image] # Un tableau pour les abscisses et un pour les ordonnées serait peut-être mieux
                 # sinon, ce qui arrive souvant vu que les modules se multiplient
                 else:
                     self.preimages[x][y] = [0, 0]
@@ -204,10 +213,13 @@ class graphe_complexe:
 
         # On trace les antécédents dans la surface de gauche
         # grâce à la table de correspondance
+        tableau_gauche = pygame.PixelArray(self.surface_ensemble_depart)
+        tableau_droite = pygame.PixelArray(self.surface_ensemble_arrivee)
         for x in range(self.largeur):
             for y in range(self.hauteur):
-                self.surface_ensemble_depart.set_at((x, y), self.surface_ensemble_arrivee.get_at(self.preimages[x][y]))
-                
+                tableau_gauche[x][y] = tableau_droite[self.preimages[x][y][0]][self.preimages[x][y][1]]
+        del tableau_gauche
+        del tableau_droite
     def afficher(self):
         self.repere_gauche.tracer()
         self.repere_droite.tracer()
@@ -218,8 +230,8 @@ class graphe_complexe:
 if __name__ == '__main__':
     # Taille de la fenêtre
     # Attention: la vitesse d'exécution du programme dépend directement du nombre de pixels
-    LARGEUR = 1200
-    HAUTEUR = 600
+    LARGEUR = 600
+    HAUTEUR = 300
     
     pygame.init()
     
