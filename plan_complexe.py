@@ -118,7 +118,12 @@ def X_carre(X, Y):
     return X * X - Y * Y
 def Y_carre(X, Y):
     return 2 * X * Y
-    
+
+def X_moins(X, Y):
+    return -X
+def Y_moins(X, Y):
+    return -Y
+
 # Gère si les fléches sont maintenues enfoncées ou non
 class gestionnaire_evenements:
     def __init__(self):
@@ -261,9 +266,22 @@ if __name__ == '__main__':
     image = pygame.transform.scale(image, [ LARGEUR / 4, int(LARGEUR / 4 / ratio)])
     print("--> fait")
 
+    print("Quel fonction voulez-vous utiliser?")
+    print("0: z -> -z")
+    print("1: z -> z^2")
+    print("2: z -> z(z^4 - 1)")
+    choix = int(input("Choix: "))
+
+    
+    print("Création des deux repères.")
     # Instanciation du bouzin
-    plan = graphe_complexe(ecran)
-    #plan = graphe_complexe(ecran, X_carre, Y_carre)
+    if( choix == 0):
+        plan = graphe_complexe(ecran, X_moins, Y_moins)
+    elif( choix == 1):
+        plan = graphe_complexe(ecran, X_carre, Y_carre)
+    else: 
+        plan = graphe_complexe(ecran)    
+    print("--> fait")
 
     fini = False
     while not fini:
