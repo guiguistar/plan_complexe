@@ -252,6 +252,13 @@ if __name__ == '__main__':
         LARGEUR = 600
         HAUTEUR = 300
 
+    # Le menu
+    print("Quel fonction voulez-vous utiliser?")
+    print("0: z -> -z")
+    print("1: z -> z^2")
+    print("2: z -> z(z^4 - 1)")
+    choix = int(input("Choix: "))
+
     print("Initialisation de pygame.")
     pygame.init()
     print("--> fait")
@@ -265,13 +272,6 @@ if __name__ == '__main__':
     ratio = float(image.get_width()) / image.get_height()
     image = pygame.transform.scale(image, [ LARGEUR / 4, int(LARGEUR / 4 / ratio)])
     print("--> fait")
-
-    print("Quel fonction voulez-vous utiliser?")
-    print("0: z -> -z")
-    print("1: z -> z^2")
-    print("2: z -> z(z^4 - 1)")
-    choix = int(input("Choix: "))
-
     
     print("Création des deux repères.")
     # Instanciation du bouzin
