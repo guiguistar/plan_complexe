@@ -276,12 +276,17 @@ if __name__ == '__main__':
     # Instanciation du bouzin
     if( choix == 0):
         plan = graphe_complexe(ecran, X_moins, Y_moins)
+        title = 'z -> -z'
     elif( choix == 1):
         plan = graphe_complexe(ecran, X_carre, Y_carre)
+        title = 'z -> z^2'
     else: 
         plan = graphe_complexe(ecran)    
+        title = 'z -> z(z^4-1)'
     print("--> fait")
-
+    
+    pygame.display.set_caption(title)
+    
     fini = False
     while not fini:
         for evenement in pygame.event.get():
