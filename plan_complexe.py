@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-#! /usr/bin/python2
+#coding: utf8
 
 import pygame
 import sys
